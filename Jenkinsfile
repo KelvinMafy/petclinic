@@ -1,8 +1,8 @@
 pipeline {
   agent any
     tools {
-      maven 'maven3'
-                 jdk 'JDK8'
+      maven 'maven-3.8.6'
+                 jdk 'java-11'
     }
     stages {      
         stage('Build maven ') {
@@ -22,7 +22,7 @@ pipeline {
         stage('Build docker image') {
            steps {
                script {         
-                 def customImage = docker.build('initsixcloud/petclinic', "./docker")
+                 def customImage = docker.build('mafyman/petclinic', "./docker")
                  docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
                  customImage.push("${env.BUILD_NUMBER}")
                  }                     
